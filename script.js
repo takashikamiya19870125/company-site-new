@@ -1,6 +1,14 @@
 // Initialize EmailJS
 (function() {
-    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+    // EmailJS設定が必要です
+    // 1. https://www.emailjs.com/ でアカウント作成
+    // 2. Gmail等のサービスを接続
+    // 3. メールテンプレートを作成
+    // 4. 以下に実際の値を設定してください
+    const PUBLIC_KEY = "-0ODsrBCzoqQ0dFlg"; // EmailJSのPublic Key
+    if (PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+        emailjs.init(PUBLIC_KEY);
+    }
 })();
 
 // Navigation functionality
@@ -98,7 +106,19 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Send email using EmailJS
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        const SERVICE_ID = "Godvalley1031"; // EmailJSのService ID
+        const TEMPLATE_ID = "template_z2xkjss"; // EmailJSのTemplate ID
+        
+        if (SERVICE_ID === "YOUR_SERVICE_ID" || TEMPLATE_ID === "YOUR_TEMPLATE_ID") {
+            // EmailJS設定が未完了の場合は開発用メッセージを表示
+            showFormStatus('success', 'フォームが送信されました（開発環境）。実際のメール送信にはEmailJS設定が必要です。');
+            contactForm.reset();
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            return;
+        }
+        
+        emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
             .then(function(response) {
                 console.log('SUCCESS!', response.status, response.text);
                 showFormStatus('success', 'お問い合わせありがとうございます。24時間以内にご返信いたします。');
