@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Send email using EmailJS
-        const SERVICE_ID = "service_nipcm6b"; // EmailJSのService ID
+        const SERVICE_ID = "service_5js56et"; // EmailJSのService ID
         const TEMPLATE_ID = "template_z2xkjss"; // EmailJSのTemplate ID
         
         if (SERVICE_ID === "YOUR_SERVICE_ID" || TEMPLATE_ID === "YOUR_TEMPLATE_ID") {
@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         console.log('EmailJS 送信開始:', { SERVICE_ID, TEMPLATE_ID, templateParams });
+        console.log('EmailJS 初期化状態:', emailjs);
         
         emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
             .then(function(response) {
