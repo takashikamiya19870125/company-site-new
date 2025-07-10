@@ -122,10 +122,28 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('EmailJS 送信開始:', { SERVICE_ID, TEMPLATE_ID, templateParams });
         console.log('EmailJS 初期化状態:', emailjs);
         
-        emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
-            .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
-                showFormStatus('success', 'お問い合わせありがとうございます。24時間以内にご返信いたします。');
+        // 1. 神谷さん宛にお問い合わせ通知を送信
+        const notificationParams = {
+            ...templateParams,
+            to_email: 'takashi.kamiya@roc-your-world.com',
+            to_name: '神谷崇'
+        };
+        
+        // 2. 問い合わせ者宛に自動返信を送信
+        const autoReplyParams = {
+            ...templateParams,
+            to_email: formData.get('email'),
+            to_name: formData.get('name')
+        };
+        
+        // 両方のメールを送信
+        Promise.all([
+            emailjs.send(SERVICE_ID, TEMPLATE_ID, notificationParams),
+            emailjs.send(SERVICE_ID, TEMPLATE_ID, autoReplyParams)
+        ])
+            .then(function(responses) {
+                console.log('SUCCESS!', responses);
+                showFormStatus('success', 'お問い合わせありがとうございます。確認メールをお送りしました。24時間以内にご返信いたします。');
                 contactForm.reset();
             })
             .catch(function(error) {
