@@ -102,7 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
             service: getServiceText(formData.get('service')),
             message: formData.get('message'),
             to_name: '神谷崇',
-            to_email: 'takashi.kamiya@roc-your-world.com'
+            to_email: 'takashi.kamiya@roc-your-world.com',
+            reply_to: formData.get('email')
         };
 
         // Send email using EmailJS
