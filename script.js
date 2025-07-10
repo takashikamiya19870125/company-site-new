@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Send email using EmailJS
-        const SERVICE_ID = "Godvalley1031"; // EmailJSのService ID
+        const SERVICE_ID = "service_nipcm6b"; // EmailJSのService ID
         const TEMPLATE_ID = "template_z2xkjss"; // EmailJSのTemplate ID
         
         if (SERVICE_ID === "YOUR_SERVICE_ID" || TEMPLATE_ID === "YOUR_TEMPLATE_ID") {
@@ -118,6 +118,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        console.log('EmailJS 送信開始:', { SERVICE_ID, TEMPLATE_ID, templateParams });
+        
         emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
             .then(function(response) {
                 console.log('SUCCESS!', response.status, response.text);
@@ -126,7 +128,8 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(function(error) {
                 console.log('FAILED...', error);
-                showFormStatus('error', '送信に失敗しました。しばらく経ってから再度お試しください。');
+                console.log('エラー詳細:', error.text || error.message || error);
+                showFormStatus('error', `送信に失敗しました: ${error.text || error.message || 'Unknown error'}`);
             })
             .finally(function() {
                 // Reset button state
