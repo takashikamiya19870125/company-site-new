@@ -93,7 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
             phone: formData.get('phone') || '未記入',
             service: getServiceText(formData.get('service')),
             message: formData.get('message'),
-            to_name: '神谷崇'
+            to_name: '神谷崇',
+            to_email: 'takashi.kamiya@roc-your-world.com'
         };
 
         // Send email using EmailJS
